@@ -1,15 +1,10 @@
 import instanceAxios from "../../helper/axios/axios-instance";
 import { Products } from "./types";
 
-// Get all products
-
 export const fetchProducts = async (offset: number, limit: number) => {
-  const { data } = await instanceAxios.get<Products>("products", {
-    params: {
-      offset,
-      limit,
-    },
-  });
+  const { data } = await instanceAxios.get<Products>(
+    `products?offset=${offset}&limit=${limit}`
+  );
   return data;
 };
 
