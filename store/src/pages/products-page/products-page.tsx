@@ -44,7 +44,6 @@ export function ProductsPage() {
                   />
                 </div>
               ))} */}
-
               <p className="text-left">{product.title}</p>
 
               <p className="font-semibold">${product.price}</p>
