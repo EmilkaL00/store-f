@@ -18,9 +18,8 @@ export function Product({
   href,
 }: ProductProps) {
   return (
-    // <div className="shadow-md">
     <a
-      className="shadow-md hover:brightness-50 hover:cursor-pointer"
+      className="shadow-md hover:brightness-75 hover:cursor-pointer"
       href={href}
       onClick={onClick}
     >
@@ -32,6 +31,5 @@ export function Product({
         <p className="description text-xs">{description}</p>
       </div>
     </a>
-    // </div>
   );
 }
