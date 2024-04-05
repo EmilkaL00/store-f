@@ -23,7 +23,12 @@ export function Product({
       href={href}
       onClick={onClick}
     >
-      <Image src={image} preview={false} />
+      <Image
+        placeholder
+        fallback={"https://fakeimg.pl/400x400?text=loading.."}
+        src={image}
+        preview={false}
+      />
 
       <div className="flex flex-col p-2">
         <p>{title}</p>
