@@ -1,4 +1,4 @@
-import { Anchor, Image } from "antd";
+import { Image } from "antd";
 
 type ProductProps = {
   image: string;
