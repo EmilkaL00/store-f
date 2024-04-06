@@ -24,6 +24,7 @@ export function Product({
       onClick={onClick}
     >
       <Image
+        alt="product-img"
         placeholder
         fallback={"https://fakeimg.pl/400x400?text=loading.."}
         src={image}
