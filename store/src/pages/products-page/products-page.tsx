@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { useProducts } from "../../hooks/use-products";
+import { Spin } from "antd";
+import { Button } from "antd";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { Product } from "../../components/product/product";
 
 export function ProductsPage() {
   const [offset, setOffset] = useState(0);
-  const limit = 9; // Set the limit for pagination
+  const limit = 9;
 
-  const { productsList } = useProducts(offset, limit);
+  const { productsList, isLoading } = useProducts(offset, limit);
 
   const handleNextPage = () => {
     setOffset(offset + limit);
@@ -15,9 +19,11 @@ export function ProductsPage() {
     if (offset >= limit) {
       setOffset(offset - limit);
     } else {
-      setOffset(0); // Return to the first page if offset is less than limit
+      setOffset(0);
     }
   };
+
+  if (isLoading) return <Spin size="large" fullscreen />;
 
   return (
     <>
@@ -30,33 +36,44 @@ export function ProductsPage() {
       >
         {productsList &&
           productsList.map((product) => (
-            <div key={product.id}>
-              <img
-                src={product.images[0]}
-                style={{ width: "100%", height: "auto" }}
-              />
-              {/* {product.images.map((image, index) => (
-                <div key={index}>
-                  <img
-                    src={image}
-                    alt={`Product ${index}`}
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                </div>
-              ))} */}
-
-              <p className="text-left">{product.title}</p>
-
-              <p className="font-semibold">${product.price}</p>
-
-              <p>{product.description}</p>
-            </div>
+            <Product
+              key={product.id}
+              image={product.images[0]}
+              title={product.title}
+              price={`${product.price} PLN`}
+              description={product.description}
+            />
           ))}
       </div>
-      <button onClick={handlePrevPage} disabled={offset === 0}>
-        Previous
-      </button>
-      <button onClick={handleNextPage}>Next</button>
+
+      <div className="flex justify-between	py-6">
+        <Button
+          disabled={offset === 0}
+          type="primary"
+          className="text-medium"
+          onClick={() => {
+            setOffset(0);
+          }}
+        >
+          back to home page
+        </Button>
+        <div className="flex gap-4">
+          <Button
+            icon={<LeftOutlined />}
+            onClick={handlePrevPage}
+            disabled={offset === 0}
+          >
+            Previous
+          </Button>
+          <Button
+            className="flex flex-row-reverse items-center gap-2"
+            icon={<RightOutlined />}
+            onClick={handleNextPage}
+          >
+            Next
+          </Button>
+        </div>
+      </div>
     </>
   );
 }
