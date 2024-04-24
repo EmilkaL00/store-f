@@ -1,19 +1,28 @@
 import { RouteObject } from "react-router-dom";
 import { ProductsPage } from "../pages/products-page/products-page";
-import Header from "../components/navbar/navbar";
+import { ProductPage } from "../pages/product-page/product-page";
+import { App } from "../App";
 
 export const routes: RouteObject[] = [
   {
     path: "/",
-    element: <Header />,
+    element: <App />,
     children: [
       {
         path: "/",
+        children: [
+          { index: true, element: <ProductsPage /> },
+          { path: "/:id", element: <ProductPage /> },
+        ],
       },
-      { path: "/home", element: <ProductsPage /> },
+
       {
-        path: "register",
-        element: <>Register</>,
+        path: "/login",
+        element: <ProductPage />,
+      },
+      {
+        path: "/cart",
+        element: <div>cart</div>,
       },
     ],
   },

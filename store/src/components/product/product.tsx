@@ -1,12 +1,12 @@
 import { Image } from "antd";
+import { Link } from "react-router-dom";
 
 type ProductProps = {
   image: string;
   title: string;
   price: string;
   description: string;
-  onClick?: () => void;
-  href?: string;
+  href: string;
 };
 
 export function Product({
@@ -14,14 +14,12 @@ export function Product({
   title,
   price,
   description,
-  onClick,
   href,
 }: ProductProps) {
   return (
-    <a
+    <Link
       className="shadow-md hover:brightness-75 hover:cursor-pointer"
-      href={href}
-      onClick={onClick}
+      to={href}
     >
       <Image
         alt="product-img"
@@ -36,6 +34,6 @@ export function Product({
         <p className="font-bold">{price}</p>
         <p className="description text-xs">{description}</p>
       </div>
-    </a>
+    </Link>
   );
 }

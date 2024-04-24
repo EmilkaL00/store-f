@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useProducts } from "../../hooks/use-products";
-import { Spin } from "antd";
+import { MenuProps, Spin } from "antd";
 import { Button } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Product } from "../../components/product/product";
+import { ContainerWrapper } from "../../components/container-wrapper/container-wrapper";
+import { Filter } from "../../components/filter/filter";
 
 export function ProductsPage() {
   const [offset, setOffset] = useState(0);
@@ -23,10 +25,54 @@ export function ProductsPage() {
     }
   };
 
+  const itemsFilters: MenuProps["items"][] = [
+    [
+      {
+        label: <a href="https://www.antgroup.com">1st menu item</a>,
+        key: "0",
+      },
+      {
+        label: <a href="https://www.aliyun.com">2nd menu item</a>,
+        key: "1",
+      },
+    ],
+    [
+      {
+        label: <a href="https://www.antgroup.com">1st menu item</a>,
+        key: "0",
+      },
+      {
+        label: <a href="https://www.aliyun.com">2nd menu item</a>,
+        key: "1",
+      },
+    ],
+    [
+      {
+        label: <a href="https://www.antgroup.com">1st menu item</a>,
+        key: "0",
+      },
+      {
+        label: <a href="https://www.aliyun.com">2nd menu item</a>,
+        key: "1",
+      },
+    ],
+  ];
+
+  const titles = ["Title", "Price", "Category"];
+
   if (isLoading) return <Spin size="large" fullscreen />;
 
   return (
-    <>
+    <ContainerWrapper>
+      <div className="flex flex-row gap-10 mb-10">
+        <p>Sort by:</p>
+
+        <div className="flex flex-row gap-8">
+          {itemsFilters.map((items, index) => (
+            <Filter title={titles[index]} items={items} key={index} />
+          ))}
+        </div>
+      </div>
       <div
         style={{
           display: "grid",
@@ -34,9 +80,11 @@ export function ProductsPage() {
           gap: "20px",
         }}
       >
+        {!productsList?.length && <div> No products </div>}
         {productsList &&
           productsList.map((product) => (
             <Product
+              href={`/${product.id}`}
               key={product.id}
               image={product.images[0]}
               title={product.title}
@@ -45,7 +93,6 @@ export function ProductsPage() {
             />
           ))}
       </div>
-
       <div className="flex justify-between	py-6">
         <Button
           disabled={offset === 0}
@@ -74,6 +121,6 @@ export function ProductsPage() {
           </Button>
         </div>
       </div>
-    </>
+    </ContainerWrapper>
   );
 }
